@@ -1,5 +1,5 @@
 interface=br-lan # make dnsmasq listen for requests only on specific interface (our LAN)
-expand-hosts      # add a domain to simple hostnames in /etc/hosts
+no-hosts
 domain=lan    # allow fully qualified domain names for DHCP hosts (needed when "expand-hosts" is used)
 local=/lan/
 dhcp-range=192.168.6.2,192.168.6.255,255.255.255.0,12h # defines a DHCP-range for the LAN
