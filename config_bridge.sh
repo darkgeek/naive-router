@@ -9,6 +9,7 @@ function create {
 
     for device in "${LAN_DEVS[@]}"
     do
+        ip link set dev $device up
         ip link set $device master $BRIDGE_DEV
         echo Add device to bridge $BRIDGE_DEV: $device
     done
