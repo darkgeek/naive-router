@@ -1,0 +1,11 @@
+[Unit]
+Description=Setup router
+After=networking.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/justin/Shares/naive-router/setup.sh
+
+[Install]
+WantedBy=default.target
+
