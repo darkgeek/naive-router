@@ -1,6 +1,5 @@
 [Unit]
 Description=Setup router
-After=networking.service
 
 [Service]
 Type=oneshot
