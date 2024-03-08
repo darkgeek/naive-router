@@ -1,0 +1,50 @@
+#!/bin/sh
+
+LAN_DEVS="eth0 eth1"
+BRIDGE_DEV="br-lan"
+WAN_DEV="eth2"
+
+create() {
+    ip link add name $BRIDGE_DEV type bridge
+    ip link set dev $BRIDGE_DEV up
+
+    echo "$LAN_DEVS" | tr ' ' '\n' | while read device; do
+        ip link set dev $device up
+        ip link set $device master $BRIDGE_DEV
+        echo Add device to bridge $BRIDGE_DEV: $device
+    done
+    
+    echo Show devices in the bridge $BRIDGE_DEV:
+    bridge link
+}
+
+destory() {
+    echo "$LAN_DEVS" | tr ' ' '\n' | while read device; do
+        ip link set $device nomaster
+        ip link set $device down
+        echo Remove device from bridge $BRIDGE_DEV: $device
+    done
+
+    ip link delete $BRIDGE_DEV type bridge
+
+    echo Show devices in the bridge $BRIDGE_DEV:
+    bridge link
+}
+
+# See: https://thermalcircle.de/doku.php?id=blog:linux:flowtables_1_a_netfilter_nftables_fastpath
+enable_tcp_offload() {
+    nft add table inet filter
+    nft add flowtable inet filter f \
+       { hook ingress priority 0\; devices = { $BRIDGE_DEV, $WAN_DEV }\; }
+    nft add chain inet filter forward { type filter hook forward priority 0\; }
+    nft add rule inet filter forward meta l4proto tcp flow add @f
+}
+
+test_bridge_device() {
+    ip addr show dev $BRIDGE_DEV > /dev/null
+}
+
+if [ "$reason" = "PREINIT" ]; then
+    test_bridge_device && exit 0
+    create && enable_tcp_offload
+fi
