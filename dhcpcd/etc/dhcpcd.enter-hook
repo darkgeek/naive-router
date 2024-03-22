@@ -44,7 +44,12 @@ test_bridge_device() {
     ip addr show dev $BRIDGE_DEV > /dev/null
 }
 
+enable_wan() {
+    ip link set dev $WAN_DEV up
+}
+
 if [ "$reason" = "PREINIT" ]; then
     test_bridge_device && exit 0
     create && enable_tcp_offload
+    enable_wan
 fi
