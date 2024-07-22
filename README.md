@@ -7,6 +7,7 @@ Let's turn a normal Linux box into an ipv6 ready router!
 * Local DNS resolution
 * IPV6 ready, support prefix delegation and slaac, so you can enjoy ipv6-first network
 * Sane firewall configuration
+* Flow offloading for packet acceleration
 * Minimal wireguard support
 
 ## Prerequisite 
