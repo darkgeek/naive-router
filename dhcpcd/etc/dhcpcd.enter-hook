@@ -1,8 +1,8 @@
 #!/bin/sh
 
-LAN_DEVS="eth0 eth1"
+LAN_DEVS="eth0"
 BRIDGE_DEV="br-lan"
-WAN_DEV="eth2"
+WAN_DEV="eth1"
 
 create() {
     ip link add name $BRIDGE_DEV type bridge
@@ -48,15 +48,8 @@ enable_wan() {
     ip link set dev $WAN_DEV up
 }
 
-prepare() {
-    ip link set dev eth0 address 72:48:38:46:3a:37 
-    ip link set dev eth1 address e2:00:37:da:40:e7 
-    ip link set dev eth2 address 02:e6:1a:87:06:11 
-}
-
 if [ "$reason" = "PREINIT" ]; then
     test_bridge_device && exit 0
-    prepare
     create && enable_tcp_offload
     enable_wan
 fi

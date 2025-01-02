@@ -2,7 +2,7 @@ interface=br-lan # make dnsmasq listen for requests only on specific interface (
 no-hosts
 domain=lan    # allow fully qualified domain names for DHCP hosts (needed when "expand-hosts" is used)
 local=/lan/
-dhcp-range=192.168.6.2,192.168.6.255,255.255.255.0,12h # defines a DHCP-range for the LAN
+dhcp-range=192.168.8.2,192.168.8.255,255.255.255.0,12h # defines a DHCP-range for the LAN
 
 enable-ra
 # Provide IPv6 DHCP leases, the range is constructed using the network interface as prefix
