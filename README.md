@@ -9,6 +9,7 @@ Let's turn a normal Linux box into an ipv6 ready router!
 * Sane firewall configuration
 * Flow offloading for packet acceleration
 * Minimal wireguard support
+* Redirect flow based on destination ip set (`redirlist` and `redirlistv6` in nftables.conf, may be used with dnsmasq's `nftset` option to support [redirection by domain name](https://forum.openwrt.org/t/how-to-use-nftset-with-dnsmasq/159786/19))
 
 ## Prerequisite 
 * `dhcpcd`: get ip for WAN port, ipv6-pd...
