@@ -5,7 +5,8 @@ Let's turn a normal Linux box into an ipv6 ready router!
 ## Features
 * DHCP lease service
 * Local DNS resolution
-* IPV6 ready, support prefix delegation and slaac, so you can enjoy ipv6-first network
+* IPV6 first, support prefix delegation and stateless dhcpv6
+* [IPV6 ULA](https://en.wikipedia.org/wiki/Unique_local_address) and NAT6 support, in case PD not working
 * Sane firewall configuration
 * Flow offloading for packet acceleration
 * Minimal wireguard support
