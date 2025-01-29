@@ -30,3 +30,7 @@ In this repo's default configurations, `eth0` and `eth1` are LAN ports, `eth2` i
 After your customizations are done, copy the files where they should be before starting and enabling those services.
 
 Finally, ensure there aren't any other dhcp client running, or else there might be some race conditions. In Debian, it's needed to comment all the ethernet device entries in `/etc/network/interfaces`, and disable the ifupdown service by `sudo systemctl disable networking.service`.
+
+## Workarounds
+We provide [workarounds](https://github.com/darkgeek/naive-router/blob/main/workarounds/) to fix some wierd connectivity issues:
+* Unable to reach ipv6 Internet when isp changes ipv6 prefix.
