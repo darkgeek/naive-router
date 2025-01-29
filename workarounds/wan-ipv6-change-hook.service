@@ -1,10 +1,8 @@
 [Unit]
 Description=wan-ipv6-change-hook service
-Wants=network.target
 After=dhcpcd.service
 
 [Service]
-Type=forking
 ExecStart=/home/justin/bin/wan-ipv6-change-hook.sh
 Restart=on-failure
 
