@@ -1,7 +1,7 @@
 #!/bin/bash
 
 STATE_FILE_PATH=/tmp/wan-last-ipv6-address
-WAN_IF="eth2"
+WAN_IF="eth1"
 
 # Start monitor on wan event
 ip -6 monitor address dev $WAN_IF |  while read -r line; do
