@@ -4,7 +4,7 @@ STATE_FILE_PATH=/tmp/wan-last-ipv6-address
 WAN_IF="eth2"
 
 # Start monitor on wan event
-ip monitor address dev $WAN_IF |  while read -r line; do
+ip -6 monitor address dev $WAN_IF |  while read -r line; do
     # check if ipv6 changes
     if echo "$line" | grep -q 'inet6'; then
         # extract ipv6 (like inet6 2001:db8::1/64)
