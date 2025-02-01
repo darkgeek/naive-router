@@ -2,6 +2,17 @@
 
 STATE_FILE_PATH=/tmp/wan-last-ipv6-address
 WAN_IF="eth2"
+LAN_IF="br-lan"
+
+remove_old_delegated() {
+    ip -6 addr show dev br-lan scope global dynamic | awk '/inet6/{print $2}' | while read -r address; do
+    ip addr del "$address" dev "$LAN_IF" && echo "Deleted old delegated ipv6 address: $address"
+done
+}
+
+restart_dhcpcd() {
+    systemctl restart dhcpcd && echo "Restart dhcpcd done."
+}
 
 # Start monitor on wan event
 ip -6 monitor address dev $WAN_IF |  while read -r line; do
@@ -19,7 +30,8 @@ ip -6 monitor address dev $WAN_IF |  while read -r line; do
                 last_ipv6=$(cat $STATE_FILE_PATH)
                 if [ -n "$last_ipv6" ] && [ -n "$current_ipv6" ] && [ "$last_ipv6" != "$current_ipv6" ]; then
                     echo "ipv6 address of $WAN_IF has changed, before=$last_ipv6, now=$current_ipv6"
-                    systemctl restart dhcpcd && echo "Restart dhcpcd done."
+                    remove_old_delegated
+                    restart_dhcpcd
                 fi
             fi
 
