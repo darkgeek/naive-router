@@ -1,7 +1,7 @@
 #!/bin/bash
 
 STATE_FILE_PATH=/tmp/wan-last-ipv6-address
-WAN_IF="eth2"
+WAN_IF="eth1"
 LAN_IF="br-lan"
 
 remove_old_delegated() {
